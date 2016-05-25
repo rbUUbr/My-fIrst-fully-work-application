@@ -16,6 +16,7 @@ object Main: TMain
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -370,7 +371,7 @@ object Main: TMain
   object lblContinue: TLabel
     Left = 520
     Top = 224
-    Width = 401
+    Width = 305
     Height = 105
     AutoSize = False
     Caption = #1055#1088#1086#1076#1086#1083#1078#1080#1090#1100
@@ -386,7 +387,7 @@ object Main: TMain
   object lblExit: TLabel
     Left = 528
     Top = 344
-    Width = 401
+    Width = 305
     Height = 105
     AutoSize = False
     Caption = #1042#1099#1081#1090#1080
@@ -401,7 +402,7 @@ object Main: TMain
   end
   object lblWin: TLabel
     Left = 240
-    Top = 216
+    Top = 208
     Width = 889
     Height = 265
     AutoSize = False
@@ -415,6 +416,38 @@ object Main: TMain
     Visible = False
     WordWrap = True
     OnClick = lblExitClick
+  end
+  object lblDot1: TLabel
+    Left = 439
+    Top = 24
+    Width = 74
+    Height = 257
+    Alignment = taCenter
+    Caption = '.'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -267
+    Font.Name = 'Small Fonts'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+    Visible = False
+  end
+  object lblDot2: TLabel
+    Left = 831
+    Top = 24
+    Width = 74
+    Height = 251
+    Alignment = taCenter
+    Caption = '.'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -267
+    Font.Name = 'Small Fonts'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+    Visible = False
   end
   object btnStart: TButton
     Left = 432

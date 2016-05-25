@@ -13,12 +13,17 @@ type
     lblHelp: TLabel;
     lblExit: TLabel;
     mpMenu: TMediaPlayer;
+    lblDot1: TLabel;
+    lblDot2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure troublesCreate;
     procedure cloudsCreate;
     procedure lblStartClick(Sender: TObject);
     procedure lblExitClick(Sender: TObject);
     procedure mpMenuNotify(Sender: TObject);
+    procedure lblHelpClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -32,7 +37,7 @@ implementation
 
 {$R *.dfm}
 uses
-   bass, MainFrame;
+   bass, MainFrame, Help;
 var
    check: Boolean;
 procedure TMenu.cloudsCreate;
@@ -60,14 +65,15 @@ end;
 
 procedure TMenu.FormCreate(Sender: TObject);
 begin
+   Screen.Cursor := crNone;
    imgHelp.Top := MainMenu.Menu.Top + ClientHeight;
    troublesCreate;
    cloudsCreate;
    if not check then
    begin
-   mpMenu.FileName := 'Menu.mp3';
-   mpMenu.open;
-   mpMenu.Play;
+      mpMenu.FileName := 'Menu.mp3';
+      mpMenu.open;
+      mpMenu.Play;
    end;
 end;
 
@@ -102,6 +108,7 @@ begin
    Main.tmrRender.Enabled := True;
    Main.imgBird.Top := 100;
    check := True;
+   Main.Enabled := true;
 end;
 
 procedure TMenu.lblExitClick(Sender: TObject);
@@ -119,4 +126,62 @@ begin
    mpMenu.Notify := false;
 end;
 
+procedure TMenu.lblHelpClick(Sender: TObject);
+begin
+   HelpFrame.show;
+   MainMenu.Menu.Hide;
+end;
+
+procedure TMenu.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   case key of
+      VK_DOWN: begin
+                  if (lblDot1.top = 24) then
+                  begin
+                     lblDot1.top := 125;
+                     lblDot2.Top := 125;
+                  end
+                  else
+                     if (lblDot1.Top = 125) then
+                     begin
+                        lblDot1.Top := 235;
+                        lblDot2.Top := 235;
+                     end
+                     else
+                        if (lblDot1.Top = 235) then
+                        begin
+                           lblDot1.Top := 24;
+                           lblDot2.Top := 24;
+                        end;
+               end;
+      VK_UP: begin
+                  if (lblDot1.top = 24) then
+                  begin
+                     lblDot1.top := 235;
+                     lblDot2.Top := 235;
+                  end
+                  else
+                     if (lblDot1.Top = 125) then
+                     begin
+                        lblDot1.Top := 24;
+                        lblDot2.Top := 24;
+                     end
+                     else
+                        if (lblDot1.Top = 235) then
+                        begin
+                           lblDot1.Top := 125;
+                           lblDot2.Top := 125;
+                        end;
+             end;
+      VK_RETURN: begin
+                    case lblDot1.Top of
+                       24: lblStartClick(sender);
+                       125: lblHelpClick(sender);
+                       235: lblExitClick(sender);
+                    end;
+
+                 end;
+   end;
+end;
 end.

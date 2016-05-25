@@ -16,6 +16,7 @@ object Menu: TMenu
   OldCreateOrder = False
   WindowState = wsMaximized
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
   object lblStart: TLabel
@@ -1638,10 +1639,11 @@ object Menu: TMenu
     Transparent = True
     Layout = tlCenter
     WordWrap = True
+    OnClick = lblHelpClick
   end
   object lblExit: TLabel
     Left = 536
-    Top = 448
+    Top = 432
     Width = 393
     Height = 57
     AutoSize = False
@@ -1656,6 +1658,36 @@ object Menu: TMenu
     Layout = tlCenter
     WordWrap = True
     OnClick = lblExitClick
+  end
+  object lblDot1: TLabel
+    Left = 447
+    Top = 24
+    Width = 74
+    Height = 257
+    Alignment = taCenter
+    Caption = '.'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -267
+    Font.Name = 'Small Fonts'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
+  object lblDot2: TLabel
+    Left = 855
+    Top = 24
+    Width = 74
+    Height = 257
+    Alignment = taCenter
+    Caption = '.'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -267
+    Font.Name = 'Small Fonts'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
   end
   object mpMenu: TMediaPlayer
     Left = 272

@@ -39,6 +39,8 @@ type
     lblExit: TLabel;
     lblWin: TLabel;
     tmrReturn: TTimer;
+    lblDot1: TLabel;
+    lblDot2: TLabel;
     procedure btnStartClick(Sender: TObject);
     procedure Cloud;
     procedure Earth;
@@ -77,6 +79,7 @@ type
     procedure lblExitClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure tmrReturnTimer(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
      coordinateX: integer;
      coordinateY: integer;
@@ -136,6 +139,7 @@ end;
 procedure TMain.FormCreate(Sender: TObject);
 begin
    DoubleBuffered := true;
+   Screen.Cursor := crNone;
    Setlength(skyArray, 23);
    Setlength(earthArray, 6);
    Cloud;
@@ -168,6 +172,7 @@ begin
       lblWin.Visible := true;
       tmrRender.Enabled := false;
       tmrReturn.Enabled := true;
+      Main.Enabled := False;
       lblWin.BringToFront;
    end;
    for i := 0 to Length(skyArray) - 1 do
@@ -221,18 +226,67 @@ end;
 
 procedure TMain.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+const
+   BIRD_MOVE = 10;
+   CONTINUE_POS = 24;
+   EXIT_POS = 140;
 begin
    case key of
    VK_UP:
+      if not lblContinue.Visible then
+      begin
       if (imgBird.Top > 0) then
-         imgBird.Top := imgBird.Top - 10;
+         imgBird.Top := imgBird.Top - BIRD_MOVE;
+      end
+        else
+      begin
+         imgBird.Top := imgBird.Top;
+         if (lblDot1.Top = CONTINUE_POS) then
+         begin
+            lblDot1.Top := EXIT_POS;
+            lblDot2.top := EXIT_POS;
+         end
+         else
+         begin
+            lblDot1.Top := CONTINUE_POS;
+            lblDot2.top := CONTINUE_POS;
+         end;
+      end;
    VK_DOWN:
+      if not lblContinue.Visible then
+      begin
       if (imgBird.Top < Main.Height + Main.Top) then
-         imgBird.Top := imgBird.Top + 10;
-
+         imgBird.Top := imgBird.Top + BIRD_MOVE;
+      end
+      else
+      begin
+         imgBird.Top := imgBird.Top;
+         if (lblDot1.Top = CONTINUE_POS) then
+         begin
+            lblDot1.Top := EXIT_POS;
+            lblDot2.top := EXIT_POS;
+         end
+         else
+         begin
+            lblDot1.Top := CONTINUE_POS;
+            lblDot2.top := CONTINUE_POS;
+         end;
+      end;
+   VK_RETURN: begin
+                 if not tmrReturn.Enabled then
+                    case lblDot1.Top of
+                       CONTINUE_POS: lblContinueClick(sender);
+                       EXIT_POS: lblExitClick(sender);
+                    end;
+              end;
    end;
 end;
 procedure TMain.Earth;
+const
+   WIDTH = 60;
+   HEIGHT = 170;
+   BIAS = 250;
+   STARTER_POSITION = 20;
 var
    i: Byte;
 begin
@@ -241,14 +295,14 @@ begin
       earthArray[i] := TImage.Create(Main);
       earthArray[i].Parent := Main;
       earthArray[i].Stretch := true;
-      earthArray[i].Width := 60;
-      earthArray[i].Height := 170;
-      earthArray[i].Top := ClientHeight - 170;
+      earthArray[i].Width := WIDTH;
+      earthArray[i].Height := HEIGHT;
+      earthArray[i].Top := ClientHeight - HEIGHT;
       earthArray[i].Picture.LoadFromFile('troubles.jpg');
       if (i = 0) then
-         earthArray[i].Left := 20
+         earthArray[i].Left := STARTER_POSITION
       else
-         earthArray[i].Left := earthArray[i - 1].Left + 250;
+         earthArray[i].Left := earthArray[i - 1].Left + BIAS;
    end;
 
 end;
@@ -260,16 +314,17 @@ begin
 end;
 
 procedure TMain.save;
-var
-   i: Byte;
+const
+   HEIGHT = 64;
+   SAVE_PICTURE_NAME = 'maxresdefault.jpg';
 begin
    savePlace := TImage.Create(Main);
    savePlace.Parent := Main;
    savePlace.Stretch := true;
    savePlace.Width := ClientWidth;
-   savePlace.Height := 64;
-   savePlace.Top := Main.Top + ClientHeight;
-   savePlace.Picture.LoadFromFile('maxresdefault.jpg');
+   savePlace.Height := HEIGHT;
+   savePlace.Top := Main.Top + ClientHeight;;
+   savePlace.Picture.LoadFromFile(SAVE_PICTURE_NAME);
 end;
 
 
@@ -279,8 +334,7 @@ begin
 end;
 
 procedure TMain.tmrBoomTimer(Sender: TObject);
-var
-   i: byte;
+
 begin
    inc(checkUpdate);
    if (checkUpdate = 3) then
@@ -306,7 +360,7 @@ begin
       tmrBoom.Enabled := true;
    if (checkUpdate = 12) then
    begin
-      checkUpdate := 12;
+      checkUpdate := 0;
       imgBoom.Picture := nil;
       tmrBoom.Enabled := false;
    end
@@ -414,6 +468,8 @@ end;
 
 procedure TMain.lblPauseClick(Sender: TObject);
 begin
+   lblDot1.Visible := true;
+   lblDot2.Visible := true;
    tmrRender.Enabled := False;
    lblExit.Visible := true;
    imgBird.Enabled := False;
@@ -436,6 +492,8 @@ begin
 end;
 
 procedure TMain.lblContinueClick(Sender: TObject);
+const
+   TOP_POSITION = 24;
 begin
    tmrRender.Enabled := true;
    lblExit.Visible := False;
@@ -453,12 +511,20 @@ begin
    lblPause.Visible := true;
    lblSpeed.Visible := False;
    lblContinue.Visible := False;
+   lblDot1.Visible := false;
+   lblDot2.Visible := false;
+   lblDot1.Top := TOP_POSITION;
+   lblDot2.Top := TOP_POSITION;
 end;
 
 procedure TMain.lblExitClick(Sender: TObject);
+const
+   TOP_POSITION = 24;
 begin
    MainMenu.Menu.Show;
    Main.hide;
+   lblDot1.Top := TOP_POSITION;
+   lblDot2.top := TOP_POSITION;
 end;
 
 procedure TMain.FormShow(Sender: TObject);
@@ -468,6 +534,7 @@ begin
    lblSpeed.Visible := false;
    lblContinue.Visible := false;
    imgBird.Enabled := true;
+   lblWin.Visible := false;
    imgNullSpeed.Visible := False;
    imgFirstSpeed.Visible := False;
    imgSecondSpeed.Visible := False;
@@ -479,15 +546,56 @@ begin
    imgEithSpeed.Visible := False;
    imgNinthSpeed.Visible := False;
    lblPause.Visible := true;
+   imgBoom.Picture.LoadFromFile('Бах.png');
+   lblDot1.Visible := false;
+   lblDot2.Visible := false;
 end;
 
 procedure TMain.tmrReturnTimer(Sender: TObject);
 begin
    MainMenu.Menu.Show;
-   MainMenu.Menu.Enabled := true;
    tmrRender.Enabled := false;
    lblWin.Visible := false;
    tmrReturn.Enabled := false;
+   Main.Enabled := false;
 end;
 
+procedure TMain.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+   case Key of
+   '0':
+      btnNullSpeedClick(sender);
+   '1':
+      btnSpeed1Click(Sender);
+   '2':
+      btnSpeed2Click(Sender);
+   '3':
+      btnSpeed3Click(Sender);
+   '4':
+      btnSpeed4Click(Sender);
+   '5':
+      btnSpeed5Click(Sender);
+   '6':
+      btnSpeed6Click(Sender);
+   '7':
+      btnSpeed7Click(Sender);
+   '8':
+      btnSpeed8Click(Sender);
+   '9':
+      btnSpeed9Click(Sender);
+   #27: begin
+           if tmrReturn.Enabled then
+           begin
+              MainMenu.Menu.Show;
+              Main.Hide;
+              tmrReturn.Enabled := false;
+              imgBoom.Visible := False;
+           end;
+           if not lblContinue.Visible then
+              lblPauseClick(sender)
+           else
+              lblContinueClick(sender);
+        end;
+   end;
+end;
 end.
