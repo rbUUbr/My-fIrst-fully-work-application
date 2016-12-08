@@ -8,6 +8,10 @@ uses
 
 {$R *.res}
 
+
+
+
+
 begin
   Application.Initialize;
   Application.CreateForm(TMenu, Menu);
