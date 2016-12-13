@@ -2,6 +2,8 @@ unit Help;
 
 interface
 
+
+
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls;
@@ -54,9 +56,9 @@ end;
 
 procedure THelpFrame.lblGoNextClick(Sender: TObject);
 const
-   SECOND_HELP = 'В случае столкновения с препятствием вам выведется сообщение о неудаче(3). Также вы можете вызвать меню паузы(Esc) для того, чтобы изменить скорость движения препятствий';
-   FIRST_HELP = 'В данном приложении вам необходимо управлять высотой полета птицы при помощи кнопок "стрелка вверх" и"стрелка вниз"(1).';
-   SECOND_HALF_OF_FIRST = ' Вам необходимо посадить её на землю между трубами, в этом случае вам выведется сообщение о победе(2) и выбудете перенаправлены в главное меню';
+   SECOND_HELP = 'Г‚ Г±Г«ГіГ·Г ГҐ Г±ГІГ®Г«ГЄГ­Г®ГўГҐГ­ГЁГї Г± ГЇГ°ГҐГЇГїГІГ±ГІГўГЁГҐГ¬ ГўГ Г¬ ГўГ»ГўГҐГ¤ГҐГІГ±Гї Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г® Г­ГҐГіГ¤Г Г·ГҐ(3). Г’Г ГЄГ¦ГҐ ГўГ» Г¬Г®Г¦ГҐГІГҐ ГўГ»Г§ГўГ ГІГј Г¬ГҐГ­Гѕ ГЇГ ГіГ§Г»(Esc) Г¤Г«Гї ГІГ®ГЈГ®, Г·ГІГ®ГЎГ» ГЁГ§Г¬ГҐГ­ГЁГІГј Г±ГЄГ®Г°Г®Г±ГІГј Г¤ГўГЁГ¦ГҐГ­ГЁГї ГЇГ°ГҐГЇГїГІГ±ГІГўГЁГ©';
+   FIRST_HELP = 'Г‚ Г¤Г Г­Г­Г®Г¬ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГЁ ГўГ Г¬ Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГіГЇГ°Г ГўГ«ГїГІГј ГўГ»Г±Г®ГІГ®Г© ГЇГ®Г«ГҐГІГ  ГЇГІГЁГ¶Г» ГЇГ°ГЁ ГЇГ®Г¬Г®Г№ГЁ ГЄГ­Г®ГЇГ®ГЄ "Г±ГІГ°ГҐГ«ГЄГ  ГўГўГҐГ°Гµ" ГЁ"Г±ГІГ°ГҐГ«ГЄГ  ГўГ­ГЁГ§"(1).';
+   SECOND_HALF_OF_FIRST = ' Г‚Г Г¬ Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГЇГ®Г±Г Г¤ГЁГІГј ГҐВё Г­Г  Г§ГҐГ¬Г«Гѕ Г¬ГҐГ¦Г¤Гі ГІГ°ГіГЎГ Г¬ГЁ, Гў ГЅГІГ®Г¬ Г±Г«ГіГ·Г ГҐ ГўГ Г¬ ГўГ»ГўГҐГ¤ГҐГІГ±Гї Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г® ГЇГ®ГЎГҐГ¤ГҐ(2) ГЁ ГўГ»ГЎГіГ¤ГҐГІГҐ ГЇГҐГ°ГҐГ­Г ГЇГ°Г ГўГ«ГҐГ­Г» Гў ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ';
 begin
    if imgFirst.Visible then
    begin
@@ -68,9 +70,9 @@ begin
       imgSecond.Visible := false;
       lblHelp1.Visible := false;
       lblHelp2.Visible := false;
-      lblGoNext.Caption := 'Выйти в меню';
+      lblGoNext.Caption := 'Г‚Г»Г©ГІГЁ Гў Г¬ГҐГ­Гѕ';
       lblGoToPrevious.Visible := true;
-      lblGoToPrevious.Caption := 'Назад';
+      lblGoToPrevious.Caption := 'ГЌГ Г§Г Г¤';
       lblFirstText.Visible := true;
       lblFirstText.Caption := SECOND_HELP;
    end
@@ -84,22 +86,22 @@ begin
       imgSecond.Visible := true;
       lblHelp1.Visible := true;
       lblHelp2.Visible := true;
-      lblGoNext.Caption := 'Далее';
+      lblGoNext.Caption := 'Г„Г Г«ГҐГҐ';
       lblGoToPrevious.Visible := true;
-      lblGoToPrevious.Caption := 'Выйти в меню';
+      lblGoToPrevious.Caption := 'Г‚Г»Г©ГІГЁ Гў Г¬ГҐГ­Гѕ';
       lblFirstText.Visible := true;
       lblFirstText.Caption := FIRST_HELP + SECOND_HALF_OF_FIRST;
       HelpFrame.hide;
       MainMenu.Menu.Show;
-      lblGoNext.Caption := 'Далее';
+      lblGoNext.Caption := 'Г„Г Г«ГҐГҐ';
    end;
 end;
 
 procedure THelpFrame.lblGoToPreviousClick(Sender: TObject);
 const
-   SECOND_HELP = 'В случае столкновения с препятствием вам выведется сообщение о неудаче(3). Также вы можете вызвать меню паузы(Esc) для того, чтобы изменить скорость движения препятствий';
-   FIRST_HELP = 'В данном приложении вам необходимо управлять высотой полета птицы при помощи кнопок "стрелка вверх" и"стрелка вниз"(1).';
-   SECOND_HALF_OF_FIRST = ' Вам необходимо посадить её на землю между трубами, в этом случае вам выведется сообщение о победе(2) и выбудете перенаправлены в главное меню';
+   SECOND_HELP = 'Г‚ Г±Г«ГіГ·Г ГҐ Г±ГІГ®Г«ГЄГ­Г®ГўГҐГ­ГЁГї Г± ГЇГ°ГҐГЇГїГІГ±ГІГўГЁГҐГ¬ ГўГ Г¬ ГўГ»ГўГҐГ¤ГҐГІГ±Гї Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г® Г­ГҐГіГ¤Г Г·ГҐ(3). Г’Г ГЄГ¦ГҐ ГўГ» Г¬Г®Г¦ГҐГІГҐ ГўГ»Г§ГўГ ГІГј Г¬ГҐГ­Гѕ ГЇГ ГіГ§Г»(Esc) Г¤Г«Гї ГІГ®ГЈГ®, Г·ГІГ®ГЎГ» ГЁГ§Г¬ГҐГ­ГЁГІГј Г±ГЄГ®Г°Г®Г±ГІГј Г¤ГўГЁГ¦ГҐГ­ГЁГї ГЇГ°ГҐГЇГїГІГ±ГІГўГЁГ©';
+   FIRST_HELP = 'Г‚ Г¤Г Г­Г­Г®Г¬ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГЁ ГўГ Г¬ Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГіГЇГ°Г ГўГ«ГїГІГј ГўГ»Г±Г®ГІГ®Г© ГЇГ®Г«ГҐГІГ  ГЇГІГЁГ¶Г» ГЇГ°ГЁ ГЇГ®Г¬Г®Г№ГЁ ГЄГ­Г®ГЇГ®ГЄ "Г±ГІГ°ГҐГ«ГЄГ  ГўГўГҐГ°Гµ" ГЁ"Г±ГІГ°ГҐГ«ГЄГ  ГўГ­ГЁГ§"(1).';
+   SECOND_HALF_OF_FIRST = ' Г‚Г Г¬ Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГЇГ®Г±Г Г¤ГЁГІГј ГҐВё Г­Г  Г§ГҐГ¬Г«Гѕ Г¬ГҐГ¦Г¤Гі ГІГ°ГіГЎГ Г¬ГЁ, Гў ГЅГІГ®Г¬ Г±Г«ГіГ·Г ГҐ ГўГ Г¬ ГўГ»ГўГҐГ¤ГҐГІГ±Гї Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г® ГЇГ®ГЎГҐГ¤ГҐ(2) ГЁ ГўГ»ГЎГіГ¤ГҐГІГҐ ГЇГҐГ°ГҐГ­Г ГЇГ°Г ГўГ«ГҐГ­Г» Гў ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ';
 begin
    if imgFirst.Visible then
    begin
@@ -116,8 +118,8 @@ begin
       imgSecond.Visible := true;
       lblHelp1.Visible := true;
       lblHelp2.Visible := true;
-      lblGoNext.Caption := 'Далее';
-      lblGoToPrevious.Caption := 'Выйти в меню';
+      lblGoNext.Caption := 'Г„Г Г«ГҐГҐ';
+      lblGoToPrevious.Caption := 'Г‚Г»Г©ГІГЁ Гў Г¬ГҐГ­Гѕ';
       lblGoToPrevious.Visible := true;
       lblFirstText.Visible := true;
       lblFirstText.Caption := FIRST_HELP + SECOND_HALF_OF_FIRST;
