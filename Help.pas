@@ -39,14 +39,17 @@ var
 implementation
 uses MainMenu;
 {$R *.dfm}
-
+procedure loadPictures
+begin
+  imgFirst.Picture.LoadFromFile('Help1.png');
+  imgSecond.Picture.LoadFromFile('Help2.png');
+  imgThird.Picture.LoadFromFile('Help3.png');
+  imgFourth.Picture.LoadFromFile('Help4.png');
+  Screen.Cursor := crNone;
+end
 procedure THelpFrame.FormCreate(Sender: TObject);
 begin
-   imgFirst.Picture.LoadFromFile('Help1.png');
-   imgSecond.Picture.LoadFromFile('Help2.png');
-   imgThird.Picture.LoadFromFile('Help3.png');
-   imgFourth.Picture.LoadFromFile('Help4.png');
-   Screen.Cursor := crNone;
+  loadPictures;
 end;
 
 procedure THelpFrame.FormClose(Sender: TObject; var Action: TCloseAction);
